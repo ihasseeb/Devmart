@@ -65,7 +65,7 @@ const Cart = () => {
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="w-20 h-20 object-cover rounded-lg flex-shrink-0"
+                  className="w-20 h-20 object-cover rounded-lg shrink-0"
                 />
 
                 {/* Info */}

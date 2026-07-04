@@ -773,7 +773,7 @@ const FeaturedProducts = () => {
       {/* Products Heading */}
       <div className="max-w-7xl mx-auto px-6 py-8 mt-4">
         <h2 className="text-4xl font-bold text-gray-900 text-center">
-          Products
+          📦 Products
         </h2>
         <p className="text-gray-500 mt-2 text-center">
           Explore all categories and find what you need

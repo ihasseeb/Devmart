@@ -4,7 +4,7 @@ const About = () => {
   return (
     <div className="bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-600 text-white py-20 px-6">
+      <section className="bg-linear-to-br from-blue-900 via-blue-800 to-blue-600 text-white py-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">About DevMart</h1>
           <p className="text-blue-200 text-lg max-w-2xl mx-auto">
@@ -102,7 +102,7 @@ const About = () => {
         </h2>
         <div className="flex justify-center">
           <div className="bg-white rounded-2xl shadow-md p-8 text-center max-w-sm">
-            <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-24 h-24 bg-linear-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-4">
               <img
                 src={HaseebImage}
                 alt="Haseebi"
@@ -123,7 +123,7 @@ const About = () => {
       </section>
 
       {/* Contact CTA */}
-      <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16 px-6">
+      <section className="bg-linear-to-r from-blue-600 to-blue-800 text-white py-16 px-6">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4">Get In Touch</h2>
           <p className="text-blue-200 mb-8">

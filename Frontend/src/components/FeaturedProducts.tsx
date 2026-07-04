@@ -590,7 +590,7 @@ const allProducts: Product[] = [
     category: "Beauty",
     rating: 4.3,
     image:
-      "https://images.unsplash.com/photo-1586495777744-4e6232a5a0e9?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&h=300&fit=crop",
   },
   {
     id: 701,

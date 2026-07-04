@@ -283,6 +283,15 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
+                  to="/about"
+                  className="block hover:text-blue-300 transition"
+                  onClick={() => setIsOpen(false)}
+                >
+                  ℹ️ About
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/products"
                   className="block hover:text-blue-300 transition"
                   onClick={() => setIsOpen(false)}

@@ -3,55 +3,56 @@ import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <section className="relative bg-linear-to-br from-blue-900 via-blue-800 to-blue-600 text-white overflow-hidden">
+    <section className="relative bg-gradient-to-br from-gray-100 via-white to-gray-50 text-gray-900 overflow-hidden">
+      {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500 rounded-full opacity-20 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-teal-500 rounded-full opacity-20 blur-3xl" />
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-100 rounded-full opacity-40 blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gray-200 rounded-full opacity-40 blur-3xl" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6 py-28 flex flex-col items-center text-center">
-        {/* Badge — upar se aaye */}
+        {/* Badge */}
         <motion.span
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="bg-blue-500/30 border border-blue-400/40 text-blue-200 text-xs font-medium px-4 py-1.5 rounded-full mb-6 tracking-wider uppercase"
+          className="bg-blue-100 border border-blue-200 text-blue-600 text-xs font-medium px-4 py-1.5 rounded-full mb-6 tracking-wider uppercase"
         >
           🎉 New Arrivals Every Week
         </motion.span>
 
-        {/* Heading — left se aaye */}
+        {/* Heading */}
         <motion.h1
           initial={{ opacity: 0, x: -100 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-4xl md:text-6xl font-extrabold leading-tight mb-6 max-w-3xl"
+          className="text-4xl md:text-6xl font-extrabold leading-tight mb-6 max-w-3xl text-gray-900"
         >
           Your One-Stop Shop for{" "}
-          <span className="text-transparent bg-clip-text bg-linear-to-r from-teal-300 to-blue-300">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-400">
             Everything You Need
           </span>
         </motion.h1>
 
-        {/* Subheading — right se aaye */}
+        {/* Subheading */}
         <motion.p
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-blue-200 text-lg md:text-xl max-w-xl mb-10 leading-relaxed"
+          className="text-gray-500 text-lg md:text-xl max-w-xl mb-10 leading-relaxed"
         >
           Discover thousands of products with the best prices, fast delivery,
           and a seamless shopping experience.
         </motion.p>
 
-        {/* Buttons — left aur right se */}
+        {/* Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
           className="flex flex-col sm:flex-row gap-4"
         >
-          {/* Shop Now — left se */}
+          {/* Shop Now */}
           <motion.div
             initial={{ opacity: 0, x: -80 }}
             animate={{ opacity: 1, x: 0 }}
@@ -61,13 +62,13 @@ const Hero = () => {
           >
             <Link
               to="/products"
-              className="block bg-white text-blue-900 font-semibold px-8 py-3 rounded-full hover:bg-blue-50 transition duration-200 shadow-lg cursor-pointer"
+              className="block bg-blue-600 text-white font-semibold px-8 py-3 rounded-full hover:bg-blue-700 transition duration-200 shadow-lg cursor-pointer"
             >
               🛒 Shop Now
             </Link>
           </motion.div>
 
-          {/* Browse Products — right se */}
+          {/* Browse Products */}
           <motion.div
             initial={{ opacity: 0, x: 80 }}
             animate={{ opacity: 1, x: 0 }}
@@ -77,14 +78,14 @@ const Hero = () => {
           >
             <Link
               to="/products"
-              className="block border-2 border-white/40 text-white font-semibold px-8 py-3 rounded-full hover:bg-white/10 transition duration-200 cursor-pointer"
+              className="block border-2 border-blue-600 text-blue-600 font-semibold px-8 py-3 rounded-full hover:bg-blue-50 transition duration-200 cursor-pointer"
             >
               Browse Products →
             </Link>
           </motion.div>
         </motion.div>
 
-        {/* Stats — neeche se aayein ek ek karke */}
+        {/* Stats */}
         <div className="mt-16 grid grid-cols-3 gap-8 md:gap-16">
           {[
             { value: "10K+", label: "Products", x: -80 },
@@ -98,8 +99,8 @@ const Hero = () => {
               transition={{ duration: 0.6, delay: 0.9 + i * 0.1 }}
               whileHover={{ scale: 1.1 }}
             >
-              <p className="text-3xl font-bold text-white">{stat.value}</p>
-              <p className="text-blue-300 text-sm mt-1">{stat.label}</p>
+              <p className="text-3xl font-bold text-gray-900">{stat.value}</p>
+              <p className="text-gray-400 text-sm mt-1">{stat.label}</p>
             </motion.div>
           ))}
         </div>

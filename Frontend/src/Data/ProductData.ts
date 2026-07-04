@@ -1,8 +1,4 @@
-import { useState } from "react";
-import ProductCard from "./ProductCards";
-import { motion } from "framer-motion";
-
-interface Product {
+export interface Product {
   id: number;
   name: string;
   price: number;
@@ -11,9 +7,7 @@ interface Product {
   image: string;
 }
 
-// All products data - 10 per category
-const allProducts: Product[] = [
-  // Electronics - 10 products
+export const allProducts: Product[] = [
   {
     id: 1,
     name: "Laptop Pro",
@@ -65,8 +59,7 @@ const allProducts: Product[] = [
     price: 12000,
     category: "Electronics",
     rating: 4.6,
-    image:
-      "https://images.unsplash.com/photo-1587829741301-dc798b83add1?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/keyboard?random=152",
   },
   {
     id: 102,
@@ -83,8 +76,7 @@ const allProducts: Product[] = [
     price: 5500,
     category: "Electronics",
     rating: 4.4,
-    image:
-      "https://images.unsplash.com/photo-1598080502436-0ba90127c9fd?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/webcam?random=259",
   },
   {
     id: 104,
@@ -104,8 +96,6 @@ const allProducts: Product[] = [
     image:
       "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=400&h=300&fit=crop",
   },
-
-  // Phones - 10 products
   {
     id: 6,
     name: "iPhone 15",
@@ -140,7 +130,7 @@ const allProducts: Product[] = [
     category: "Phones",
     rating: 4.5,
     image:
-      "https://images.unsplash.com/photo-1552710771-d33cda3fda2e?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1533228100845-08145b01de14?w=400&h=300&fit=crop",
   },
   {
     id: 202,
@@ -148,8 +138,7 @@ const allProducts: Product[] = [
     price: 75000,
     category: "Phones",
     rating: 4.7,
-    image:
-      "https://images.unsplash.com/photo-1598286871644-5f85cc0e1a8d?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/google?random=932",
   },
   {
     id: 203,
@@ -166,8 +155,7 @@ const allProducts: Product[] = [
     price: 35000,
     category: "Phones",
     rating: 4.2,
-    image:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/realme?random=206",
   },
   {
     id: 205,
@@ -196,8 +184,6 @@ const allProducts: Product[] = [
     image:
       "https://images.unsplash.com/photo-1556656793-08538906a9f8?w=400&h=300&fit=crop",
   },
-
-  // Fashion - 10 products
   {
     id: 9,
     name: "Nike Shoes",
@@ -249,8 +235,7 @@ const allProducts: Product[] = [
     price: 4500,
     category: "Fashion",
     rating: 4.4,
-    image:
-      "https://images.unsplash.com/photo-1542272604-787c62d465d1?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/denim?random=210",
   },
   {
     id: 302,
@@ -258,8 +243,7 @@ const allProducts: Product[] = [
     price: 8000,
     category: "Fashion",
     rating: 4.6,
-    image:
-      "https://images.unsplash.com/photo-1551028719-00167b16ebc5?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/winter?random=12",
   },
   {
     id: 303,
@@ -267,8 +251,7 @@ const allProducts: Product[] = [
     price: 3500,
     category: "Fashion",
     rating: 4.3,
-    image:
-      "https://images.unsplash.com/photo-1595606863675-dde5edd97bc5?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/summer?random=990",
   },
   {
     id: 304,
@@ -276,8 +259,7 @@ const allProducts: Product[] = [
     price: 1500,
     category: "Fashion",
     rating: 4.2,
-    image:
-      "https://images.unsplash.com/photo-1540895577874-86fd374e3537?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/sports?random=132",
   },
   {
     id: 305,
@@ -288,8 +270,6 @@ const allProducts: Product[] = [
     image:
       "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=300&fit=crop",
   },
-
-  // Sports - 10 products
   {
     id: 14,
     name: "Cricket Bat",
@@ -323,8 +303,7 @@ const allProducts: Product[] = [
     price: 3000,
     category: "Sports",
     rating: 4.6,
-    image:
-      "https://images.unsplash.com/photo-1601925228008-d0e86e38a450?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/yoga?random=21",
   },
   {
     id: 401,
@@ -342,7 +321,7 @@ const allProducts: Product[] = [
     category: "Sports",
     rating: 4.3,
     image:
-      "https://images.unsplash.com/photo-1532568827798-34abf65dd604?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=400&h=300&fit=crop",
   },
   {
     id: 403,
@@ -350,8 +329,7 @@ const allProducts: Product[] = [
     price: 5500,
     category: "Sports",
     rating: 4.4,
-    image:
-      "https://images.unsplash.com/photo-1554068865-24cecd4e34c8?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/tennis?random=314",
   },
   {
     id: 404,
@@ -359,8 +337,7 @@ const allProducts: Product[] = [
     price: 1200,
     category: "Sports",
     rating: 4.2,
-    image:
-      "https://images.unsplash.com/photo-1517836357463-d25ddfcbf042?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/running?random=629",
   },
   {
     id: 405,
@@ -368,8 +345,7 @@ const allProducts: Product[] = [
     price: 2500,
     category: "Sports",
     rating: 4.4,
-    image:
-      "https://images.unsplash.com/photo-1546519638-68711109bc52?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/basketball?random=922",
   },
   {
     id: 406,
@@ -377,11 +353,8 @@ const allProducts: Product[] = [
     price: 800,
     category: "Sports",
     rating: 4.1,
-    image:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/swimming?random=484",
   },
-
-  // Home & Kitchen - 10 products
   {
     id: 18,
     name: "Blender",
@@ -433,8 +406,7 @@ const allProducts: Product[] = [
     price: 5000,
     category: "Home & Kitchen",
     rating: 4.4,
-    image:
-      "https://images.unsplash.com/photo-1517668808822-9ebb02ae2a0e?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/coffee?random=268",
   },
   {
     id: 503,
@@ -470,10 +442,8 @@ const allProducts: Product[] = [
     category: "Home & Kitchen",
     rating: 4.5,
     image:
-      "https://images.unsplash.com/photo-1553189778-eb7b9c8f2723?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=400&h=300&fit=crop",
   },
-
-  // Books - 10 products
   {
     id: 22,
     name: "Clean Code",
@@ -507,8 +477,7 @@ const allProducts: Product[] = [
     price: 2200,
     category: "Books",
     rating: 4.6,
-    image:
-      "https://images.unsplash.com/photo-1507842217343-583f20270319?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/python?random=529",
   },
   {
     id: 602,
@@ -525,8 +494,7 @@ const allProducts: Product[] = [
     price: 3500,
     category: "Books",
     rating: 4.7,
-    image:
-      "https://images.unsplash.com/photo-1451681523040-f578dc4d43e9?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/design?random=441",
   },
   {
     id: 604,
@@ -534,8 +502,7 @@ const allProducts: Product[] = [
     price: 800,
     category: "Books",
     rating: 4.8,
-    image:
-      "https://images.unsplash.com/photo-1507842707343-583f20270319?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/?random=533",
   },
   {
     id: 605,
@@ -543,8 +510,7 @@ const allProducts: Product[] = [
     price: 1200,
     category: "Books",
     rating: 4.6,
-    image:
-      "https://images.unsplash.com/photo-1534516098193-a0d19fd52adf?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/thinking?random=640",
   },
   {
     id: 606,
@@ -553,7 +519,7 @@ const allProducts: Product[] = [
     category: "Books",
     rating: 4.5,
     image:
-      "https://images.unsplash.com/photo-1547448432-7a472d7dfc86?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=300&fit=crop",
   },
   {
     id: 607,
@@ -564,8 +530,6 @@ const allProducts: Product[] = [
     image:
       "https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?w=400&h=300&fit=crop",
   },
-
-  // Beauty - 10 products
   {
     id: 25,
     name: "Perfume",
@@ -599,8 +563,7 @@ const allProducts: Product[] = [
     price: 1500,
     category: "Beauty",
     rating: 4.2,
-    image:
-      "https://images.unsplash.com/photo-1598580070160-91ec68cefb47?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/face?random=998",
   },
   {
     id: 702,
@@ -608,8 +571,7 @@ const allProducts: Product[] = [
     price: 800,
     category: "Beauty",
     rating: 4.4,
-    image:
-      "https://images.unsplash.com/photo-1596954541914-7e7e6662cae5?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/hair?random=937",
   },
   {
     id: 703,
@@ -617,8 +579,7 @@ const allProducts: Product[] = [
     price: 2500,
     category: "Beauty",
     rating: 4.5,
-    image:
-      "https://images.unsplash.com/photo-1556229010-6c3f2c9ca519?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/eye?random=261",
   },
   {
     id: 704,
@@ -626,8 +587,7 @@ const allProducts: Product[] = [
     price: 2000,
     category: "Beauty",
     rating: 4.3,
-    image:
-      "https://images.unsplash.com/photo-1573086760197-8baf96ce4c4f?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/foundation?random=236",
   },
   {
     id: 705,
@@ -635,8 +595,7 @@ const allProducts: Product[] = [
     price: 1200,
     category: "Beauty",
     rating: 4.2,
-    image:
-      "https://images.unsplash.com/photo-1571875257842-35eb6e5acdf7?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/blush?random=916",
   },
   {
     id: 706,
@@ -653,11 +612,8 @@ const allProducts: Product[] = [
     price: 1800,
     category: "Beauty",
     rating: 4.4,
-    image:
-      "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/moisturizer?random=944",
   },
-
-  // Toys - 10 products
   {
     id: 28,
     name: "Lego Set",
@@ -691,8 +647,7 @@ const allProducts: Product[] = [
     price: 1500,
     category: "Toys",
     rating: 4.3,
-    image:
-      "https://images.unsplash.com/photo-1607813692712-a3b86fae8908?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/puzzle?random=530",
   },
   {
     id: 802,
@@ -718,8 +673,7 @@ const allProducts: Product[] = [
     price: 3500,
     category: "Toys",
     rating: 4.5,
-    image:
-      "https://images.unsplash.com/photo-1591871937669-8844a4008b13?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/building?random=794",
   },
   {
     id: 805,
@@ -727,8 +681,7 @@ const allProducts: Product[] = [
     price: 4500,
     category: "Toys",
     rating: 4.4,
-    image:
-      "https://images.unsplash.com/photo-1606774281777-d6ffc113fcb0?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/doll?random=301",
   },
   {
     id: 806,
@@ -736,8 +689,7 @@ const allProducts: Product[] = [
     price: 5000,
     category: "Toys",
     rating: 4.6,
-    image:
-      "https://images.unsplash.com/photo-1634821551459-37fc3f70b9f0?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/train?random=908",
   },
   {
     id: 807,
@@ -745,159 +697,6 @@ const allProducts: Product[] = [
     price: 8500,
     category: "Toys",
     rating: 4.5,
-    image:
-      "https://images.unsplash.com/photo-1608889335941-33ac5f53d8ba?w=400&h=300&fit=crop",
+    image: "https://loremflickr.com/400/300/telescope?random=631",
   },
 ];
-
-const FeaturedProducts = () => {
-  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(
-    new Set(),
-  );
-
-  const categories = Array.from(new Set(allProducts.map((p) => p.category)));
-
-  const handleLoadMore = (category: string) => {
-    setExpandedCategories((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(category)) {
-        newSet.delete(category);
-      } else {
-        newSet.add(category);
-      }
-      return newSet;
-    });
-  };
-
-  return (
-    <div>
-      {/* Products Heading */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false }}
-        transition={{ duration: 0.5 }}
-        className="max-w-7xl mx-auto px-6 py-8 mt-4"
-      >
-        <h2 className="text-4xl font-bold text-gray-900 text-center">
-          📦 Products
-        </h2>
-        <p className="text-gray-500 mt-2 text-center">
-          Explore all categories and find what you need
-        </p>
-      </motion.div>
-
-      <div className="max-w-7xl mx-auto px-6 pb-16">
-        {categories.map((category) => {
-          const categoryProducts = allProducts.filter(
-            (p) => p.category === category,
-          );
-          const isExpanded = expandedCategories.has(category);
-          const productsToShow = isExpanded
-            ? categoryProducts
-            : categoryProducts.slice(0, 3);
-          const hasMore = categoryProducts.length > 3;
-
-          return (
-            <div key={category} className="mb-14">
-              {/* Category name — left se aaye */}
-              <motion.h3
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: false }}
-                transition={{ duration: 0.4 }}
-                className="text-2xl font-bold text-gray-900 mb-6"
-              >
-                {category}
-              </motion.h3>
-
-              {/* Product Cards — stagger */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-                {productsToShow.map((product, index) => (
-                  <motion.div
-                    key={product.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: false }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                  >
-                    <ProductCard
-                      id={product.id}
-                      name={product.name}
-                      price={product.price}
-                      category={product.category}
-                      rating={product.rating}
-                      image={product.image}
-                    />
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* Load More Button */}
-              {hasMore && (
-                <div className="flex justify-center mb-8">
-                  <button
-                    onClick={() => handleLoadMore(category)}
-                    className={`
-                    group flex items-center gap-2 px-8 py-3 rounded-full font-semibold text-sm
-                    transition-all duration-300 active:scale-95 shadow-sm
-                    ${
-                      isExpanded
-                        ? "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                        : "bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md"
-                    }
-                  `}
-                  >
-                    {isExpanded ? (
-                      <>
-                        <span>Show Less</span>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-4 w-4 transition-transform group-hover:-translate-y-0.5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M5 15l7-7 7 7"
-                          />
-                        </svg>
-                      </>
-                    ) : (
-                      <>
-                        <span>Load More</span>
-                        <span className="bg-blue-500 text-white text-xs px-2 py-0.5 rounded-full">
-                          +{categoryProducts.length - 3}
-                        </span>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-4 w-4 transition-transform group-hover:translate-y-0.5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M19 9l-7 7-7-7"
-                          />
-                        </svg>
-                      </>
-                    )}
-                  </button>
-                </div>
-              )}
-              <hr className="mt-12 border-gray-200" />
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
-
-export default FeaturedProducts;

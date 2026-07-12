@@ -11,12 +11,13 @@ import { connectDB } from "./src/config/db";
 import { prisma } from "./src/config/prisma";
 
 const app = express();
-const corsOptions = {
-  origin: process.env.FRONTEND_URL, // aapka frontend ka URL
-  credentials: true, // agar cookies/auth headers bhejne hain to
-};
 
-app.use(cors(corsOptions));
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  }),
+);
 
 app.use(express.json());
 app.get("/", (req: Request, res: Response) => {

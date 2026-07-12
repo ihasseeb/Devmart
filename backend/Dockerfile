@@ -10,8 +10,11 @@ COPY package*.json ./
 # Dependencies install karo
 RUN npm install
 
+
 # Baaki saara code copy karo
 COPY . .
+
+RUN npx prisma generate
 
 # TypeScript ko compile karo (JS mein convert)
 RUN npm run build

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 
 const Cart = () => {
@@ -11,6 +11,8 @@ const Cart = () => {
     increaseQty,
     decreaseQty,
   } = useCart();
+
+  const navigate = useNavigate();
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-10">
@@ -143,7 +145,10 @@ const Cart = () => {
                 </div>
               </div>
 
-              <button className="w-full bg-primary text-white py-3 rounded-lg hover:bg-primary-hover active:scale-95 transition font-semibold">
+              <button
+                onClick={() => navigate("/checkout")}
+                className="w-full bg-primary text-white py-3 rounded-lg hover:bg-primary-hover active:scale-95 transition font-semibold"
+              >
                 Checkout →
               </button>
 

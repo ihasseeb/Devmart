@@ -3,7 +3,7 @@ import ProductCard from "./ProductCards";
 import { motion } from "framer-motion";
 
 interface Product {
-  id: number;
+  id: number | string;
   name: string;
   price: number;
   category: string;
@@ -822,7 +822,7 @@ const FeaturedProducts = () => {
                     transition={{ duration: 0.4, delay: index * 0.1 }}
                   >
                     <ProductCard
-                      id={product.id}
+                      id={String(product.id)}
                       name={product.name}
                       price={product.price}
                       category={product.category}

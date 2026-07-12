@@ -2,7 +2,7 @@ import { createContext, useContext, useState, type ReactNode } from "react";
 
 // 1. CartItem ka structure
 interface CartItem {
-  id: number;
+  id: string;
   name: string;
   price: number;
   image: string;
@@ -15,9 +15,9 @@ interface CartContextType {
   cartCount: number;
   total: number;
   addToCart: (item: CartItem) => void;
-  removeFromCart: (id: number) => void;
-  increaseQty: (id: number) => void;
-  decreaseQty: (id: number) => void;
+  removeFromCart: (id: string) => void;
+  increaseQty: (id: string) => void;
+  decreaseQty: (id: string) => void;
   clearCart: () => void;
 }
 const CartContext = createContext<CartContextType | null>(null);
@@ -39,26 +39,28 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   // Context mein add karo
-  const increaseQty = (id: number) => {
+  const increaseQty = (id: string) => {
     setCart((prev) =>
       prev.map((p) => (p.id === id ? { ...p, quantity: p.quantity + 1 } : p)),
     );
   };
 
-  const decreaseQty = (id: number) => {
-    setCart((prev) =>
-      prev
-        .map((p) =>
-          p.id === id && p.quantity > 1
-            ? { ...p, quantity: p.quantity - 1 }
-            : p,
-        )
-        .filter((p) => !(p.id === id && p.quantity === 1)),
-    );
+  const decreaseQty = (id: string) => {
+    setCart((prev) => {
+      const item = prev.find((p) => p.id === id);
+      if (item && item.quantity === 1) {
+        // agar already 1 hai, to remove kar do
+        return prev.filter((p) => p.id !== id);
+      }
+      // warna sirf quantity kam karo
+      return prev.map((p) =>
+        p.id === id ? { ...p, quantity: p.quantity - 1 } : p,
+      );
+    });
   };
 
   // Remove from cart
-  const removeFromCart = (id: number) => {
+  const removeFromCart = (id: string) => {
     setCart((prev) => prev.filter((p) => p.id !== id));
   };
 

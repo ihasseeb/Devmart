@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import ProductCard from "../components/ProductCards";
-import type { Product } from "../Data/ProductData";
-import { allProducts } from "../Data/ProductData";
+import type { Product } from "../types/product.types";
+import { getAllProducts } from "../services/productApi";
 
 const categories = [
   "All",
@@ -27,9 +28,7 @@ const Products = () => {
   const [searchParams] = useSearchParams();
   const urlSearch = searchParams.get("search") || "";
 
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState(urlSearch); // ← URL se search lo
+  const [search, setSearch] = useState(urlSearch);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [sortBy, setSortBy] = useState("default");
   const [minPrice, setMinPrice] = useState(0);
@@ -40,14 +39,17 @@ const Products = () => {
     setSearch(urlSearch);
   }, [urlSearch]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setProducts(allProducts);
-      setLoading(false);
-    }, 800);
-  }, []);
+  // ✅ Real backend se data — TanStack Query
+  const {
+    data: products = [],
+    isLoading,
+    isError,
+  } = useQuery<Product[]>({
+    queryKey: ["products"],
+    queryFn: getAllProducts,
+  });
 
-  // Filter + Sort Logic
+  // Filter + Sort Logic — ab real 'products' array pe chal raha hai
   const filteredProducts = products
     .filter((p) => {
       const matchSearch = p.name.toLowerCase().includes(search.toLowerCase());
@@ -59,7 +61,7 @@ const Products = () => {
     .sort((a, b) => {
       if (sortBy === "price_asc") return a.price - b.price;
       if (sortBy === "price_desc") return b.price - a.price;
-      if (sortBy === "rating") return b.rating - a.rating;
+      if (sortBy === "rating") return (b.rating ?? 0) - (a.rating ?? 0); // rating na ho to 0 maano
       return 0;
     });
 
@@ -205,15 +207,26 @@ const Products = () => {
             </div>
 
             {/* Loading */}
-            {loading && (
+            {isLoading && (
               <div className="flex items-center justify-center py-20">
                 <div className="animate-spin text-4xl">⏳</div>
                 <p className="ml-3 text-gray-500">Loading products...</p>
               </div>
             )}
 
+            {/* Error */}
+            {isError && (
+              <div className="text-center py-20">
+                <p className="text-5xl mb-4">⚠️</p>
+                <h2 className="text-xl font-semibold text-gray-700 mb-2">
+                  Failed to load products
+                </h2>
+                <p className="text-gray-400">Please try again later</p>
+              </div>
+            )}
+
             {/* No Results */}
-            {!loading && filteredProducts.length === 0 && (
+            {!isLoading && !isError && filteredProducts.length === 0 && (
               <div className="text-center py-20">
                 <p className="text-5xl mb-4">😕</p>
                 <h2 className="text-xl font-semibold text-gray-700 mb-2">
@@ -224,17 +237,17 @@ const Products = () => {
             )}
 
             {/* Products Grid */}
-            {!loading && filteredProducts.length > 0 && (
+            {!isLoading && !isError && filteredProducts.length > 0 && (
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
                 {filteredProducts.map((product) => (
                   <ProductCard
-                    key={product.id}
-                    id={product.id}
+                    key={product._id}
+                    id={product._id}
                     name={product.name}
                     price={product.price}
                     category={product.category}
-                    rating={product.rating}
-                    image={product.image}
+                    rating={product.rating ?? 0}
+                    image={product.image ?? ""}
                   />
                 ))}
               </div>

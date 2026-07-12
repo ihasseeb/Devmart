@@ -3,6 +3,10 @@ FROM node:20-alpine AS build
 
 WORKDIR /app
 
+# Build-time argument — Railway ke "Variables" tab se milega
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
+
 COPY package*.json ./
 RUN npm install
 
@@ -13,6 +17,9 @@ RUN npm run build
 FROM nginx:alpine
 
 COPY --from=build /app/dist /usr/share/nginx/html
+
+# Custom nginx config — React Router ke saare routes ko index.html pe bhejta hai
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 

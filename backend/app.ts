@@ -5,7 +5,9 @@ import cors from "cors";
 import express, { Request, Response } from "express";
 import authRoutes from "./src/routes/authRoutes";
 import productRoutes from "./src/routes/productRoutes";
-import orderRoutes from "./src/routes/orderRoutes";
+import orderRoutes from "./src/routes/orderRoutes"; // yeh line add karo
+import userRoutes from "./src/routes/userRoutes";
+import adminRoutes from "./src/routes/adminRoutes";
 import { notFound, errorHandler } from "./src/middleware/errorHandler";
 import { connectDB } from "./src/config/db";
 import { prisma } from "./src/config/prisma";
@@ -28,6 +30,8 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes); // yeh line add karo
+app.use("/api/users", userRoutes);
+app.use("/api/admin", adminRoutes);
 
 // Error Handling
 app.use(notFound);

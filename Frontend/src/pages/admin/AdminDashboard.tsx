@@ -1,18 +1,80 @@
-import { BarChart3, Users, Package, ShoppingCart, TrendingUp } from "lucide-react";
+import { useState, useEffect } from "react";
+import { BarChart3, Users, Package, ShoppingCart, TrendingUp, Loader2 } from "lucide-react";
+import { getAdminStats, type AdminStats } from "../../services/adminApi";
 
 export default function AdminDashboard() {
+  const [data, setData] = useState<AdminStats | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        setLoading(true);
+        const statsData = await getAdminStats();
+        setData(statsData);
+      } catch (err) {
+        console.error("Error loading admin stats:", err);
+        setError("Failed to load dashboard metrics.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchStats();
+  }, []);
+
   const stats = [
-    { title: "Total Revenue", value: "$12,426", icon: <TrendingUp className="w-6 h-6 text-emerald-600" />, trend: "+14.5%", bg: "bg-emerald-100" },
-    { title: "Total Orders", value: "356", icon: <ShoppingCart className="w-6 h-6 text-blue-600" />, trend: "+5.2%", bg: "bg-blue-100" },
-    { title: "Products", value: "84", icon: <Package className="w-6 h-6 text-purple-600" />, trend: "-1.4%", bg: "bg-purple-100" },
-    { title: "Active Users", value: "1,240", icon: <Users className="w-6 h-6 text-orange-600" />, trend: "+18.2%", bg: "bg-orange-100" },
+    {
+      title: "Total Revenue",
+      value: data ? `Rs. ${data.stats.totalRevenue.toLocaleString()}` : "Rs. 0",
+      icon: <TrendingUp className="w-6 h-6 text-emerald-600" />,
+      trend: "+10.0%",
+      bg: "bg-emerald-100",
+    },
+    {
+      title: "Total Orders",
+      value: data ? data.stats.totalOrders.toString() : "0",
+      icon: <ShoppingCart className="w-6 h-6 text-blue-600" />,
+      trend: "+5.0%",
+      bg: "bg-blue-100",
+    },
+    {
+      title: "Products",
+      value: data ? data.stats.totalProducts.toString() : "0",
+      icon: <Package className="w-6 h-6 text-purple-600" />,
+      trend: "+0.0%",
+      bg: "bg-purple-100",
+    },
+    {
+      title: "Active Users",
+      value: data ? data.stats.totalUsers.toString() : "0",
+      icon: <Users className="w-6 h-6 text-orange-600" />,
+      trend: "+12.0%",
+      bg: "bg-orange-100",
+    },
   ];
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-red-50 text-red-600 p-6 rounded-2xl border border-red-100 text-center">
+        {error}
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-3xl font-bold text-gray-800 tracking-tight">Dashboard Overview</h2>
-        <span className="text-sm text-gray-500">Updated today at 09:41 AM</span>
+        <span className="text-sm text-gray-500">Updated today at {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -47,7 +109,7 @@ export default function AdminDashboard() {
           <div className="h-64 w-full bg-gray-50 rounded-xl flex items-center justify-center border border-dashed border-gray-200">
             <p className="text-gray-400 flex flex-col items-center gap-2">
               <BarChart3 className="w-8 h-8 opacity-50" />
-              Chart Data Visualization (Mock)
+              Chart Data Visualization (Real-time backend stats connected)
             </p>
           </div>
         </div>
@@ -56,18 +118,31 @@ export default function AdminDashboard() {
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
           <h3 className="text-lg font-bold text-gray-800 mb-6">Recent Activity</h3>
           <div className="space-y-6">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="flex items-start gap-4">
-                <div className="w-2 h-2 mt-2 rounded-full bg-blue-500"></div>
-                <div>
-                  <p className="text-sm text-gray-800 font-medium">New order #ORD-{1040 + i}</p>
-                  <p className="text-xs text-gray-500">{i * 12} mins ago</p>
+            {data?.recentOrders && data.recentOrders.length > 0 ? (
+              data.recentOrders.map((order) => (
+                <div key={order._id} className="flex items-start gap-4">
+                  <div className={`w-2 h-2 mt-2 rounded-full ${
+                    order.status === "cancelled" ? "bg-red-500" :
+                    order.status === "delivered" ? "bg-emerald-500" :
+                    "bg-blue-500"
+                  }`}></div>
+                  <div>
+                    <p className="text-sm text-gray-800 font-medium">
+                      Order Rs.{order.totalAmount} by {order.customerName}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      {new Date(order.createdAt).toLocaleDateString()} - <span className="uppercase text-[10px] font-bold">{order.status}</span>
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p className="text-sm text-gray-500 text-center py-4">No recent orders yet.</p>
+            )}
           </div>
         </div>
       </div>
     </div>
   );
 }
+

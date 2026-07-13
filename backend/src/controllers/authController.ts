@@ -38,7 +38,13 @@ export const register = async (req: Request, res: Response): Promise<void> => {
     });
 
     // OTP email bhejo
-    await sendOTPEmail(email, otp);
+    try {
+      await sendOTPEmail(email, otp);
+      console.log(`[OTP_SUCCESS] OTP email sent successfully to ${email}`);
+    } catch (emailError) {
+      console.error(`[OTP_ERROR] Failed to send OTP email to ${email}:`, emailError);
+      console.log(`\n========================================\n[OTP_DEBUG] OTP for ${email} is: ${otp}\n========================================\n`);
+    }
 
     res.status(201).json({
       message: 'Registration successful. OTP sent to your email.',
@@ -119,7 +125,13 @@ export const resendOTP = async (req: Request, res: Response): Promise<void> => {
     user.otpExpires = otpExpires;
     await user.save();
 
-    await sendOTPEmail(email, otp);
+    try {
+      await sendOTPEmail(email, otp);
+      console.log(`[OTP_SUCCESS] Resent OTP email successfully to ${email}`);
+    } catch (emailError) {
+      console.error(`[OTP_ERROR] Failed to resend OTP email to ${email}:`, emailError);
+      console.log(`\n========================================\n[OTP_DEBUG] OTP for ${email} is: ${otp}\n========================================\n`);
+    }
 
     res.status(200).json({ message: 'New OTP sent to your email' });
   } catch (error) {

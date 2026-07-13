@@ -1,19 +1,13 @@
-import nodemailer from 'nodemailer';
+import { Resend } from "resend";
 
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-    },
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const sendOTPEmail = async (to: string, otp: string): Promise<void> => {
-    await transporter.sendMail({
-        from: `"DevMart" <${process.env.EMAIL_USER}>`,
-        to,
-        subject: 'DevMart - Verify Your Email',
-        html: `
+  const { error } = await resend.emails.send({
+    from: "DevMart <onboarding@resend.dev>",
+    to,
+    subject: "DevMart - Verify Your Email",
+    html: `
       <div style="font-family: Arial, sans-serif; padding: 20px;">
         <h2>Welcome to DevMart!</h2>
         <p>Your OTP code is:</p>
@@ -21,5 +15,10 @@ export const sendOTPEmail = async (to: string, otp: string): Promise<void> => {
         <p>This code will expire in 10 minutes.</p>
       </div>
     `,
-    });
+  });
+
+  if (error) {
+    console.error("Resend error:", error);
+    throw new Error("Failed to send OTP email");
+  }
 };
